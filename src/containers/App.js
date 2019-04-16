@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './App.css';
-import Search from '../components/Search'
+import Search from '../components/Search';
+import Company from '../components/Company';
 
 class App extends React.Component {
 	constructor(props) {
@@ -14,17 +15,15 @@ class App extends React.Component {
 	}
 
 	handleSearchResults(searchResults) {
-		console.log('searchResults: ', searchResults);
-		this.setState({ searchResults })
+		this.setState({ searchResults });
 	}
 
 	handleClick(event, element) {
-		console.log('element: ', element);
-		const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&keywords=${element}&apikey=X7RBKGWVBM5RZ6F7`;
+		const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${element['1. symbol']}&apikey=X7RBKGWVBM5RZ6F7`;
 		fetch(url)
 			.then(response => response.json())
-			.then(responseJson => this.setState({responseJson}))
-			.then(console.log(this.state))
+			.then(responseJson => this.setState({selectedCompanyData: responseJson}))
+			.then(console.log('state:: ',this.state))
 	}
 
 	render() {
@@ -33,6 +32,7 @@ class App extends React.Component {
 			<ul>
 				{this.state.searchResults.map((elem,ind) => <li key={ind} onClick={(e) => this.handleClick(e, elem)}>{elem['2. name']} </li>)}
 			</ul>
+			<Company companyData={this.state.selectedCompanyData} />
 		</div>
 		);
 	}
