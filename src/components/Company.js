@@ -8,13 +8,13 @@ const Company = ({ companyData }) => (<div>
 	<table>
 		<thead>
 			<tr>
-				{Object.values(companyData['Time Series (Daily)'] || {}).forEach(value => {
+{/*}				{Object.values(companyData['Time Series (Daily)'] || {}).forEach(value => {
 					{(Object.keys(value) || {}).map(key=> (
 						<th>{key}</th>
 					))}
 					
 					})}
-			</tr>
+				*/}			</tr>
 		</thead>
 		<tbody>
 			{Object.entries(companyData['Time Series (Daily)'] || {}).map(entry => (
